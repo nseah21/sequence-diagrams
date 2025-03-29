@@ -1,0 +1,64 @@
+// Use sequencediagram.org to render
+
+title Anki Flashcards Sequence Diagram
+
+actor Student
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+participant AI Server
+
+Student->Frontend:Enter deck topic and difficulty level
+activate Frontend
+
+opt use RAG
+Student->Frontend:Upload file for RAG
+end
+
+opt refine generation
+Student->Frontend:Enter additional instructions
+end
+
+  Frontend->Backend: Validate parameters and \n     forward to backend
+  activate Backend
+
+    Backend->MongoDB: Fetch flashcards marked \n   as inaccurate by user
+    activate MongoDB
+
+    MongoDB-->Backend:
+    deactivate MongoDB
+
+    Backend->AI Server: Send parameters and inaccurate\n        flashcards to AI Server
+    activate AI Server
+
+      AI Server->AI Server: Generate tuples of \n(question, answer, description)
+      activate AI Server
+
+      AI Server-->AI Server:
+      deactivate AI Server
+
+    AI Server-->Backend:
+    deactivate AI Server
+
+  Backend-->Frontend:
+  deactivate Backend
+
+  Frontend->Backend: Save flashcards
+  activate Backend
+
+    Backend->MongoDB: Persist flashcards to DB
+    activate MongoDB
+
+    MongoDB-->Backend:
+    deactivate MongoDB
+
+  Backend-->Frontend:
+  deactivate Backend
+
+Frontend-->Student:
+deactivate Frontend
+
