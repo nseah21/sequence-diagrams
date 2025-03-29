@@ -1,0 +1,46 @@
+// Use sequencediagram.org to render
+
+title Anki Flashcards Revision Sequence Diagram
+
+actor Student
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+Student->Frontend:Select Anki flashcard deck
+activate Frontend
+
+  Frontend->Backend: Fetch flashcard for selected deck
+  activate Backend
+
+    Backend->MongoDB: Query DB
+    activate MongoDB
+
+    MongoDB-->Backend:
+    deactivate MongoDB
+
+  Backend-->Frontend:
+  deactivate Backend
+
+opt some flashcard is inaccurate
+Student->Frontend:Flag flashcard as inaccurate
+
+  Frontend->Backend:  Add flashcard to list of inaccurate \nflashcards and hide from user view
+  activate Backend
+
+    Backend->MongoDB: Persist to DB
+    activate MongoDB
+
+    MongoDB-->Backend:
+    deactivate MongoDB
+
+  Backend-->Frontend:
+  deactivate Backend
+
+end
+
+Frontend->Student:
+deactivate Frontend
