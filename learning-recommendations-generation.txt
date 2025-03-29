@@ -1,0 +1,50 @@
+// Use sequencediagram.org to render
+
+title Learning Recommendations Generation Sequence Diagram
+
+actor Student
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+// opt user updates learning recommendations
+Student->Frontend:Enter topic and proficiency level
+activate Frontend
+
+  Frontend->Backend: Append student's major\n           to request
+  activate Backend
+
+    Backend->AI Server: Send parameters to AI Server
+    activate AI Server
+
+      AI Server->GCSE:    Query Google Custom \n   Search Engine API for \nlearning recommendations
+      activate GCSE
+
+      GCSE-->AI Server:
+      deactivate GCSE
+
+      AI Server->AI Server:   Filter and selectmost \n      suitable results
+      activate AI Server
+
+      AI Server-->AI Server:
+      deactivate AI Server
+
+    AI Server-->Backend:
+    deactivate AI Server
+
+    Backend->MongoDB: Persist to DB
+    activate MongoDB
+
+    MongoDB-->Backend:
+    deactivate MongoDB
+
+  Backend-->Frontend:
+  deactivate Backend
+
+// end
+
+Frontend-->Student:
+deactivate Frontend
