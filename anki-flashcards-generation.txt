@@ -35,11 +35,21 @@ end
     Backend->AI Server: Send parameters and inaccurate\n        flashcards to AI Server
     activate AI Server
 
-      AI Server->AI Server: Generate tuples of \n(question, answer, description)
+      alt user uploaded a file
+      AI Server->AI Server:Use vector store to generate tuples of \n     (question, answer, description)
       activate AI Server
-
+      
       AI Server-->AI Server:
       deactivate AI Server
+      
+      else else
+      AI Server->AI Server:Use base LLM to generate tuples of \n     (question, answer, description)
+      activate AI Server
+      
+      AI Server-->AI Server:
+      deactivate AI Server
+      
+      end
 
     AI Server-->Backend:
     deactivate AI Server
