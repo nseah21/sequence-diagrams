@@ -1,0 +1,42 @@
+// Use sequencediagram.org to render
+
+title Learning Recommendations Revision Sequence Diagram
+
+actor Student
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+Student->Frontend:Visit learning recommendations page
+activate Frontend
+
+  Frontend->Backend: Fetch latest learning\n  recommendations
+  activate Backend
+
+    Backend->MongoDB: Query DB
+    activate MongoDB
+
+    MongoDB-->Backend:
+    deactivate MongoDB
+
+  Backend-->Frontend:
+  deactivate Backend
+
+
+Frontend-->Student:
+deactivate Frontend
+
+Student->Frontend: Click on suggested links
+activate Frontend
+
+  Frontend->Frontend: Render learning content
+  activate Frontend
+
+  Frontend-->Frontend:
+  deactivate Frontend
+
+Frontend-->Student:
+deactivate Frontend
