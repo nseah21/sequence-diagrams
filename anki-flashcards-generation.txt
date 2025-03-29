@@ -1,6 +1,6 @@
 // Use sequencediagram.org to render
 
-title Anki Flashcards Sequence Diagram
+title Anki Flashcards Generation Sequence Diagram
 
 actor Student
 
