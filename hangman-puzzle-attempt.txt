@@ -1,0 +1,76 @@
+// Use sequencediagram.org to render
+
+title Hangman Puzzle Gameplay Sequence Diagram
+
+actor Student
+
+participant Frontend
+
+Student->Frontend:Attempt hangman puzzle
+activate Frontend
+
+  loop i < number of incorrect guesses
+  Frontend->Frontend: Store state of student's guesses
+  activate Frontend
+
+  Frontend-->Frontend: 
+  deactivate Frontend
+  end
+
+  alt student used up all incorrect guesses
+  Frontend->Frontend: Set game state to 'game over'
+  activate Frontend
+  
+  Frontend-->Frontend: 
+  deactivate Frontend
+  
+  else student guessed the word correctly
+  
+  Frontend->Frontend: Set game state to 'win'
+  activate Frontend
+
+  Frontend-->Frontend: 
+  deactivate Frontend
+  
+  end
+
+Frontend-->Student: 
+deactivate Frontend
+// Use sequencediagram.org to render
+
+title Hangman Puzzle Gameplay Sequence Diagram
+
+actor Student
+
+participant Frontend
+
+Student->Frontend:Attempt hangman puzzle
+activate Frontend
+
+  loop i < number of incorrect guesses
+  Frontend->Frontend: Store state of student's guesses
+  activate Frontend
+
+  Frontend-->Frontend: 
+  deactivate Frontend
+  end
+
+  alt student used up all incorrect guesses
+  Frontend->Frontend: Set game state to 'game over'
+  activate Frontend
+  
+  Frontend-->Frontend: 
+  deactivate Frontend
+  
+  else student guessed the word correctly
+  
+  Frontend->Frontend: Set game state to 'win'
+  activate Frontend
+
+  Frontend-->Frontend: 
+  deactivate Frontend
+  
+  end
+
+Frontend-->Student: 
+deactivate Frontend
