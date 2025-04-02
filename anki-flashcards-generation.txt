@@ -12,7 +12,7 @@ database MongoDB
 
 participant AI Server
 
-Student->Frontend:Enter deck topic and difficulty level
+Student->Frontend:Enter topic and difficulty level
 activate Frontend
 
 opt use RAG
@@ -23,10 +23,10 @@ opt refine generation
 Student->Frontend:Enter additional instructions
 end
 
-  Frontend->Backend: Validate parameters and \n     forward to backend
+  Frontend->Backend: Validate parameters \nand pass to backend
   activate Backend
 
-    Backend->MongoDB: Fetch flashcards marked \n   as inaccurate by user
+    Backend->MongoDB: Fetch inaccurate \n     flashcards
     activate MongoDB
 
     MongoDB-->Backend:
@@ -36,14 +36,14 @@ end
     activate AI Server
 
       alt user uploaded a file
-      AI Server->AI Server:Use vector store to generate tuples of \n     (question, answer, description)
+      AI Server->AI Server:Use vector store \n  for generation 
       activate AI Server
       
       AI Server-->AI Server:
       deactivate AI Server
       
       else else
-      AI Server->AI Server:Use base LLM to generate tuples of \n     (question, answer, description)
+      AI Server->AI Server:Use base LLM \n for generation
       activate AI Server
       
       AI Server-->AI Server:
@@ -60,7 +60,7 @@ end
   Frontend->Backend: Save flashcards
   activate Backend
 
-    Backend->MongoDB: Persist flashcards to DB
+    Backend->MongoDB: Persist to DB
     activate MongoDB
 
     MongoDB-->Backend:
@@ -71,4 +71,3 @@ end
 
 Frontend-->Student:
 deactivate Frontend
-
