@@ -1,6 +1,6 @@
 // Use sequencediagram.org to render
 
-title Actionable Insights Revision Sequence Diagram
+title Actionable Insights Sequence Diagram
 
 actor Student
 

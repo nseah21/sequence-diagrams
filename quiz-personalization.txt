@@ -1,0 +1,91 @@
+// Use sequencediagram.org to render
+
+title Quiz Personalization Sequence Diagram
+
+actor Instructor
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+activate Frontend
+Frontend-->Instructor: Display generated questions
+deactivate Frontend
+
+opt instructor wants to delete questions
+Instructor->Frontend:Delete one or more \n       questions
+activate Frontend
+
+  Frontend->Frontend: Update question state
+  activate Frontend
+  Frontend-->Frontend:
+  deactivate Frontend
+
+Frontend->Instructor:
+deactivate Frontend
+
+end
+
+Instructor->Frontend: Submit questions for \n    personalization
+activate Frontend
+
+  Frontend->Backend: Validate and forward
+  activate Backend
+ 
+    Backend->AI Server: Validate and forward
+    activate AI Server
+     
+      loop for each major
+      AI Server->AI Server:Customize question \ncontext to major
+      activate AI Server
+      
+      AI Server-->AI Server:
+      deactivate AI Server
+      end
+       
+    AI Server-->Backend: 
+    deactivate AI Server
+
+
+  Backend-->Frontend:
+  deactivate Backend
+
+Frontend-->Instructor: 
+deactivate Frontend
+
+opt instructor wants to delete questions
+Instructor->Frontend:Delete one or more\ncustomized questions
+activate Frontend
+
+  Frontend->Frontend: Update question state
+  activate Frontend
+  Frontend-->Frontend:
+  deactivate Frontend
+
+Frontend->Instructor:
+deactivate Frontend
+
+end
+
+Instructor->Frontend: Save quiz
+activate Frontend 
+
+  Frontend->Backend: Validate and forward
+  activate Backend
+  
+  Backend->MongoDB: Persist quiz
+  activate MongoDB 
+  
+  MongoDB-->Backend:
+  deactivate MongoDB
+  
+  Backend-->Frontend:
+  deactivate Backend
+  
+  Backend-->Frontend
+
+Frontend-->Instructor:
+deactivate Frontend
+

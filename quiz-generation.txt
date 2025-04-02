@@ -1,0 +1,56 @@
+// Use sequencediagram.org to render
+
+title Quiz Generation Sequence Diagram
+
+actor Instructor
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+Instructor->Frontend:Enter quiz topic and question count 
+activate Frontend
+
+opt 
+Instructor->Frontend:Upload file for RAG
+
+end
+
+  Frontend->Backend: Validate and forward parameters 
+  activate Backend
+ 
+    Backend->AI Server:Validate and forward parameters 
+    activate AI Server
+
+      alt instructor uploaded a file for RAG
+      AI Server->AI Server:Update vector store on the fly
+      activate AI Server
+      
+      AI Server-->AI Server:
+      deactivate AI Server
+      
+      AI Server->AI Server:Generate questions using\nvector store
+      activate AI Server
+      
+      AI Server-->AI Server:
+      deactivate AI Server
+      
+      else else
+      AI Server->AI Server:Generate questions\nusing base LLM
+      activate AI Server
+      
+      AI Server-->AI Server:
+      deactivate AI Server
+      end
+       
+    AI Server-->Backend: 
+    deactivate AI Server
+
+
+  Backend-->Frontend:
+  deactivate Backend
+
+Frontend-->Instructor: 
+deactivate Frontend
