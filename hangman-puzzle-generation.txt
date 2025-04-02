@@ -10,22 +10,22 @@ participant Backend
 
 database MongoDB
 
-Student->Frontend:Visit hangman puzzle page \n    and enter puzzle topic
+Student->Frontend:Visit puzzle page \nand enter puzzle topic
 activate Frontend
 
   Frontend->Backend: Send puzzle topic
   activate Backend
  
-    Backend->MongoDB: Fetch previous hangman puzzles
+    Backend->MongoDB: Fetch previous puzzles
     activate MongoDB
     
     MongoDB-->Backend:
     deactivate MongoDB
  
-    Backend->AI Server: Send puzzle topic and previous \n hangman puzzles to AI Server
+    Backend->AI Server: Send puzzle topic and \n    previous puzzles 
     activate AI Server
       
-      AI Server->AI Server: Generate new hangman \npuzzle while avoiding\nrepetition with previous puzzles
+      AI Server->AI Server:Generate \nnew puzzle
       activate AI Server
 
       AI Server-->AI Server:
@@ -34,7 +34,7 @@ activate Frontend
     AI Server-->Backend: 
     deactivate AI Server
  
-    Backend->MongoDB: Persist new puzzle to DB
+    Backend->MongoDB: Persist to DB
     activate MongoDB
 
     MongoDB-->Backend:
