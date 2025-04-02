@@ -1,0 +1,87 @@
+// Use sequencediagram.org to render
+
+title Crossword Generation Sequence Diagram
+
+actor Instructor
+
+participant Frontend
+
+participant Backend
+
+database MongoDB
+
+Instructor->Frontend:Enter crossword topic and word count
+activate Frontend
+
+  Frontend->Backend: Validate and forward parameters 
+  activate Backend
+ 
+    Backend->AI Server:Validate and forward parameters 
+    activate AI Server
+
+      AI Server->AI Server:Generate crossword tuples
+      activate AI Server
+      
+      AI Server-->AI Server:
+      deactivate AI Server
+       
+    AI Server-->Backend: 
+    deactivate AI Server
+
+  Backend-->Frontend:
+  deactivate Backend
+
+Frontend-->Instructor: 
+deactivate Frontend
+
+opt instructor wants to refine the tuples
+Instructor->Frontend:Edit generated tuples
+activate Frontend
+
+  Frontend->Frontend: Update tuple state
+  activate Frontend
+
+  Frontend-->Frontend:
+  deactivate Frontend
+
+Frontend-->Instructor: 
+deactivate Frontend
+end
+
+loop while instructor is unsatisfied with layout
+Instructor->Frontend:Generate layout
+activate Frontend
+
+  Frontend->Backend: Validate and forward
+  activate Backend
+  
+    Backend->Backend: Randomise layout
+    activate Backend
+
+    Backend-->Backend:
+    deactivate Backend
+
+  Backend-->Frontend:
+  deactivate Backend
+
+Frontend-->Instructor: Render new layout 
+deactivate Frontend
+end
+
+Instructor->Frontend:Save crossword
+activate Frontend
+
+  Frontend->Backend: 
+  activate Backend
+  
+    Backend->MongoDB: Persist to DB
+    activate MongoDB
+
+    MongoDB-->Backend: 
+    deactivate MongoDB
+
+  Backend-->Frontend:
+  deactivate Backend
+
+Frontend-->Instructor:
+deactivate Frontend
